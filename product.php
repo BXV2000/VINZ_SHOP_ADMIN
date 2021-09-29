@@ -1,0 +1,227 @@
+<?php
+include('connection.php');
+
+if(isset($_POST['add'])){
+    $TenHH = trim($_POST['TenHH']);
+    $Gia = trim($_POST['Gia']);
+    $SoLuongHang = trim($_POST['SoLuongHang']);
+    $TenHinh=$_POST['TenHinh'];
+    $MaLoaiHang=$_POST['TenLoaiHang'];
+    $QuyCach=trim($_POST['QuyCach']);
+    $insert_hanghoa="INSERT INTO `hanghoa` (`TenHH`,`QuyCach`,`Gia`,`SoLuongHang`,`MaLoaiHang`)
+                     VALUES ('$TenHH','$QuyCach','$Gia','$SoLuongHang','$MaLoaiHang');";
+    $result_insert_hanghoa=mysqli_query($connect,$insert_hanghoa);
+    $query_get_mshh = "SELECT MAX(MSHH) AS max_msHh FROM hanghoa;";
+    $result_get_mshh=mysqli_query($connect,$query_get_mshh);
+    $row = mysqli_fetch_row($result_get_mshh);
+    $max_mshh = $row[0];
+    $insert_hinhhanghoa="INSERT INTO `hinhhanghoa` (`TenHinh`,`MSHH`)
+                     VALUES ('$TenHinh','$max_mshh');";
+    $result_insert_hanghoa=mysqli_query($connect,$insert_hinhhanghoa);
+    echo"<script>alert(`Đã thêm hàng hóa`)</script>";
+    echo"<script>window.location='product.php' </script>";
+}
+if(isset($_POST['delete'])){
+    $MSHH=$_GET['delete'];
+    $remove_product="DELETE FROM hanghoa WHERE MSHH='$MSHH'";
+    $result_remove_product=mysqli_query($connect,$remove_product);
+    echo"<script>alert(`Đã xóa hàng hóa`)</script>";
+    echo"<script>window.location='product.php' </script>";
+}
+
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="js/jquery-1.10.2.min.js"></script>
+    <script src="js/jquery-ui.js"></script>
+    <style>
+    <?php include 'css/product.css'; ?>
+    </style>
+    <title>VINZ - SẢN PHẨM</title>
+</head>
+<body>
+    <?php include 'login.php'; ?>
+    <div class="products_container">
+        <div class="add_new_area  hide" id="add_new_form_wrapper">
+            <form action="./product.php" class="add_new_form" id="add_new_form" method="POST" >
+                <h3>Thêm hàng hóa</h3>
+                <label for="TenHH" class="input_fields">Tên hàng hóa <input type="text" name="TenHH"></label>
+                <label for="Gia" class="input_fields">Giá hàng hóa <input type="number" name="Gia"></label>
+                <label for="SoLuongHang" class="input_fields">Số lượng <input type="number" name="SoLuongHang"></label>
+                <label for="TenLoaiHang" class="input_fields">Danh mục
+                    <select name="TenLoaiHang" id="select_category" class="">
+                        <option value="0">Chọn danh mục</option>
+                            <?php
+                                $query_sorting = 'SELECT * from loaihanghoa ORDER BY TenLoaiHang ASC' ;
+                                $result_sorting = mysqli_query($connect,$query_sorting);
+                                mysqli_fetch_all($result_sorting,MYSQLI_ASSOC);
+                                $row_sorting_count=mysqli_num_rows($result_sorting);
+                                if($row_sorting_count > 0){
+                                    foreach($result_sorting as $row_sorting){?>
+                                        <option value="<?php echo $row_sorting['MaLoaiHang']?>"><?php echo $row_sorting['TenLoaiHang']?></option>
+                                    <?php
+                                    }
+                                }
+                            ?>
+
+                    </select>
+                </label>
+                <label for="QuyCach" class="input_fields">Quy cách <textarea name="QuyCach" id="" cols="20" rows="3"></textarea></label>
+                <label for="TenHinh" class="input_fields">Hình ảnh <input class="upload" type="file" name="TenHinh"></label>
+                <div class="form_btn_wrapper">
+                    <button class="btn" name="add">Thêm</button>
+                    <p class="btn " id="add_new_cancel" >Hủy</p>
+                </div>
+            </form>
+        </div>
+        <div class="label_area">
+            <div class="page_name">
+                <p><span><i class="fas fa-bars"></i></span> Sản phẩm</p>
+            </div>
+            <div class="greeting"></div>
+        </div>
+        
+        <div class="function_area">
+        
+            <form action="./product.php" class="search_form" method="GET">
+                <label for="line_number" class="line_input_wrapper">Nhập số dòng:<input type="number" name="line_number" class="number_input" value='10'></label>
+                <select name="" id="" class="curl_select">
+                    <option value="0">Chọn danh mục</option>
+                        <?php
+                            $query_sorting = 'SELECT * from loaihanghoa ORDER BY TenLoaiHang ASC' ;
+                            $result_sorting = mysqli_query($connect,$query_sorting);
+                            mysqli_fetch_all($result_sorting,MYSQLI_ASSOC);
+                            $row_sorting_count=mysqli_num_rows($result_sorting);
+                            if($row_sorting_count > 0){
+                                foreach($result_sorting as $row_sorting){?>
+                                    <option value="<?php echo $row_sorting['MaLoaiHang']?>"><?php echo $row_sorting['TenLoaiHang']?></option>
+                                <?php
+                                }
+                            }
+                        ?>
+
+                </select>
+                <button class="btn" name="search_product"id="search_btn">Tìm kiếm</button>
+                <button class="btn btn_no_default" id="add_product">Thêm sản phẩm</button>
+                <button class="btn btn_no_default" id="add_category">Thêm danh mục</button>
+            </form>
+            
+        </div>
+        <div class="display_area">
+            <table>
+                <tr class="table_label">
+                    <th class="column center_text">Mã hàng hóa</th>
+                    <th class="column center_text">Hình ảnh</th>
+                    <th class="column ">Tên hàng hóa</th>
+                    <th class="column" >Quy cách</th>
+                    <th class="column " >Giá hàng hóa</th>
+                    <th class="column center_text" >Số lượng tồn kho</th>
+                    <th class="column " >Loại hàng</th>
+                    <th class="column" ></th>
+                </tr>
+                <?php
+                $query_product = 'SELECT hanghoa.MSHH,hanghoa.SoLuongHang,hanghoa.QuyCach, hanghoa.TenHH,hanghoa.Gia,loaihanghoa.TenLoaiHang,hinhhanghoa.TenHinh,hanghoa.MaLoaiHang    
+                                  FROM hanghoa 
+                                  JOIN loaihanghoa ON hanghoa.MaLoaiHang = loaihanghoa.MaLoaiHang
+                                  JOIN hinhhanghoa  ON hinhhanghoa.MSHH = hanghoa.MSHH
+                                  ORDER BY tenHH ASC' ;
+                $result_product = mysqli_query($connect,$query_product);
+                mysqli_fetch_all($result_product,MYSQLI_ASSOC);
+                $row_product_count=mysqli_num_rows($result_product);
+                if($row_product_count > 0){
+                    foreach($result_product as $product)
+                    {?>   
+                        
+                        <tr class="">
+                            <td class="column center_text"><?php echo $product['MSHH']?></td>
+                            <td class="column center_item"><img src="../GUEST/img/<?php echo $product['TenHinh']?>" class="product_img" alt=""></td>
+                            <td class="column"><?php echo $product['TenHH']?></td>
+                            <td class="column" ><?php echo $product['QuyCach']?></td>
+                            <td class="column" ><?php echo $product['Gia']?> VNĐ</td>
+                            <td class="column center_text" ><?php echo $product['SoLuongHang']?></td>
+                            <td class="column " ><?php echo $product['TenLoaiHang']?></td>
+                            <td class="column btn_wrapper" >
+                                <form class="action_form" action="./product.php?delete=<?php echo $product['MSHH']?>" method="POST" onsubmit="return confirm('Bạn có muốn xóa <?php echo $product['TenHH']?>?');">
+                                    <button class="small_btn delete_btn" name="delete"><i class="fas fa-times-circle"></i></button>
+                                </form>
+                                <form class="action_form" action="./product.php?edit=<?php echo $product['MSHH']?>" method="POST" > 
+                                    <button class="small_btn edit_btn" name="edit"><i class="fas fa-pen"></i></button>
+                                </form>
+                            </td>
+                        </tr>
+                         
+                    <?php
+                    }
+                }
+                ?>
+            </table>
+        </div>
+    </div>
+    <script>
+
+        function addProductValidation(){
+            let tenHH=document.querySelector('input[name="TenHH"]').value;
+            let gia=document.querySelector('input[name="Gia"]').value;
+            let soLuong=document.querySelector('input[name="SoLuongHang"]').value;
+            let maLoaiHang=document.getElementById('select_category').value;
+            let quyCach=document.querySelector('textarea[name="QuyCach"]').value;
+            let tenHinh=document.querySelector('input[name="TenHinh"]').value;
+            let error="";
+            console.log(tenHH)
+            if(tenHH.length<=0){
+                error="Vui lòng điền tên hàng hóa";
+            }
+            if(gia.length<=0){
+                error="Vui lòng điền giá hàng hóa";
+            }
+            if(soLuong.length<=0){
+                error="Vui lòng điền số lượng hàng hóa";
+            }
+            if(maLoaiHang==='0'){
+                error="Vui lòng chọn danh mục hàng hóa";
+            }
+            if(quyCach.length<=0){
+                error="Vui lòng điền quy cách hàng hóa";
+            }
+            if(tenHinh.length<=0){
+                error="Vui lòng chọn ảnh hàng hóa";
+            }
+
+            if(error!=""){
+                alert(error);
+                return false;
+            }
+        }
+
+    
+        function btnPreventDefault(){
+            let btn_count = document.getElementsByClassName("btn_no_default");
+            for(let i =0;i<btn_count.length;i++){
+                btn_count[i].addEventListener("click", function(event){      
+                    event.preventDefault()
+                });
+            }
+        }
+
+        btnPreventDefault();
+
+        document.getElementById("add_product").addEventListener("click", function(event){
+            document.getElementById("add_new_form_wrapper").classList.remove("hide");
+        });
+
+        document.getElementById("add_new_cancel").addEventListener("click", function(event){
+            document.getElementById("add_new_form_wrapper").classList.add("hide");
+            document.getElementById("add_new_form").reset();
+        });
+        document.getElementById('add_new_form').onsubmit = function(e) {
+            if(confirm('Bạn có muốn thêm sản phẩm?'))
+                return addProductValidation();
+            else e.preventDefault();
+        };
+    </script>
+</body>
+</html>

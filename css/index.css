@@ -1,0 +1,36 @@
+@import url('https://fonts.googleapis.com/css2?family=Arimo&display=swap');
+html{
+  scroll-behavior: smooth;
+}
+
+body{
+    font-family: 'Arimo', sans-serif; 
+    margin: 0;
+}
+
+span{
+  color:#dd2f6e;
+}
+
+
+.index_container{
+  margin-left: 20em;
+}
+
+.label_area{
+  padding: 1em 3em;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.page_name{
+
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.greeting{
+  font-size: 30px;
+  font-weight: bold;
+}

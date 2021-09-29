@@ -1,0 +1,279 @@
+@import url('https://fonts.googleapis.com/css2?family=Arimo&display=swap');
+body{
+    font-family: 'Arimo', sans-serif; 
+    margin: 0;
+}
+
+.none{
+    display: none !important;
+}
+
+.cart_container{
+    margin-top: 120px;
+    min-height: 40em;
+}
+
+
+span{
+    color:#FE2F41 ;
+}
+
+/* TABLE AREA */
+table{
+    border:0.1em gray solid;
+}
+
+.delete_column{
+    padding: 1.5em;
+}
+
+.img_column{
+    padding:1.5em;
+
+}
+
+.name_column{
+    width: 10em;
+    text-align: left;
+    padding: 1.5em;
+}
+
+.price_column{
+    width: 10em;
+    text-align: left;
+    padding: 1.5em;
+}
+
+.quantity_column{
+    width: 10em;
+    text-align: left;
+    padding:1.5em;
+}
+
+.total_column{
+    width: 10em;
+    text-align: left;
+    padding:  1.5em;
+}
+/* TABLE AREA */
+
+
+
+.item_quantity{
+    max-width: 4em;
+}
+
+.item_total{
+    border:0;
+    background-color: transparent;
+}
+
+/* LABEL AREA  */
+
+.label_area{
+    padding: 2em 10em;
+    background-color: #F9F9FA;
+    border: 0.1em rgb(186, 186, 186);
+    border-style: dashed none;
+}
+
+/* LABEL AREA  */
+
+/* DETAIL AREA  */
+
+
+.detail_area{
+    display: flex;
+    justify-content: center;
+    margin: 5em 0;
+}
+
+.item_remove{
+    border: 0;
+    background-color: transparent;
+    color: #4f4f4f;
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+.item_remove:hover{
+    color: gray;
+}
+
+
+.item_img{
+    width: 50px;
+    height: 50px;
+    cursor: pointer;
+}
+
+.item_name{
+    cursor: pointer;
+    color: #4f4f4f;
+    transition: 0.3s;
+    text-decoration: none;
+}
+
+.item_name:hover{
+    color: gray;
+}
+
+.item_price{
+    color: #4f4f4f;
+
+}
+
+.item_quantity{
+    height: 3em;
+    border: solid #b8b8b8 0.1em ;
+    border-radius: 1em;
+}
+
+.item_quantity:focus{
+    outline: none;
+    border-color: black;
+}
+
+.item_total{
+    font-family:  'Arimo';
+    font-size: 16px;
+}
+
+
+/* DETAIL AREA  */
+
+/* BILL AREA  */
+
+.bill_area{
+    display: flex;
+    padding: 0em 19.25em;
+    padding-bottom: 15em;
+
+}
+
+.bill_form{
+    display: flex;
+    flex-flow: row ;
+    width: 100%;
+    justify-content: space-between;
+}
+
+
+
+.user_info_side
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex-basis: 100%;
+}
+
+.user_info_side>label{
+    font-family: "Arimo";
+    margin-bottom: 1em;
+}
+
+.user_info_side>input{
+    font-family: "Arimo";
+    padding: 1.5em;
+    border-radius: 5em;
+    border:solid 0.1em gray;
+    margin-bottom: 2em;
+    font-size: 16px;
+}
+.user_info_side>input:focus{
+    outline: none;
+    border-color: black;
+}
+
+
+.payment_side{
+    margin-left: 10em;
+    flex-basis: 100%;
+    flex-direction: column;
+    display: flex;
+
+}
+
+.total_cost_label{
+    display: flex;
+    justify-content: space-between;
+    font-size: 18px;
+    border: 0.1em solid gray;
+    padding: 0.5em;
+    color: #342828;
+    border-top: none;
+    width: 95%;
+}
+#first_total_label{
+    border-top:  0.1em solid gray;
+}
+
+.check_out_button{
+    background-color: transparent;
+    font-family: 'Arimo';
+    border:0;
+    font-size: 16px;
+    direction: rtl;
+}
+
+.check_out_button{
+    width: 15em;
+    align-self: flex-end;
+}
+
+.check_out_button{
+    margin: 3em 0;
+    padding: 1em 1.5em;
+    border-radius: 5em;
+    border: 0.1em solid transparent;
+    background-color: #FE2F41;
+    color: white;
+    transition: 0.3s;
+    font-family: 'Arimo';
+    font-weight: bold;
+    font-size: 16px;
+}
+
+.check_out_button:hover{
+    color: #342828;
+    background-color: white;
+    border-color:#342828; 
+}
+
+.total_output{
+    background-color: transparent;
+    border: 0;
+    direction: rtl;
+    font-size: 16px;
+    font-family: 'Arimo';
+    color: #342828;
+    
+}
+
+
+/* BILL AREA  */
+
+/*EMPTY CART AREA*/
+
+.empty_cart{
+    border:0.1em rgb(209, 209, 209) solid;
+    padding: 1em;
+    margin: 5em;
+    background-color: #F9F9FA;
+    border-radius: 0.5em;
+    color:#6d6565;
+    font-size: 18px;
+}
+
+.empty_cart_buttons{
+    margin: 0em 5em;
+}
+
+.empty_cart_buttons>a{
+    text-decoration: none;
+    margin-right: 3em;
+}
+
+
+/*EMPTY CART AREA*/

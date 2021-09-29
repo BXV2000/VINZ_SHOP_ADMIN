@@ -1,0 +1,138 @@
+@import url('https://fonts.googleapis.com/css2?family=Arimo&display=swap');
+body{
+    font-family: 'Arimo', sans-serif; 
+    margin: 0;
+}
+
+.none{
+    display: none;
+}
+
+.basic_button{
+    text-decoration: none;
+    color: white !important;
+    font-family: "Arimo";
+    font-size: 16px;
+    background-color: #FE2F41;
+    padding: 1em 2em;
+    border-radius: 5em;
+    border:0.1em transparent solid;
+    transition: 0.3s;
+    max-width: 10em;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.basic_button:hover{
+    border-color: gray;
+    background-color: transparent;
+    color: #342828 !important;
+}
+
+/* TABLE AREA */
+table{
+    border:0.1em gray solid;
+}
+.name_column{
+    width: 10em;
+    text-align: left;
+    padding: 1.5em;
+}
+
+.price_column{
+    width: 10em;
+    text-align: left;
+    padding: 1.5em;
+}
+
+.quantity_column{
+    width: 10em;
+    text-align: left;
+    padding:1.5em;
+}
+
+.total_column{
+    width: 10em;
+    text-align: left;
+    padding:  1.5em;
+}
+/* TABLE AREA */
+
+.endpoint_container{
+    margin-top: 120px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.item_quantity{
+    max-width: 4em;
+}
+
+.item_total{
+    border:0;
+    background-color: transparent;
+}
+
+/* LABEL AREA  */
+
+.label_area{
+    padding: 2em 10em;
+    background-color: #F9F9FA;
+    border: 0.1em rgb(186, 186, 186);
+    border-style: dashed none;
+    display: flex;
+    width: 100%;
+}
+
+.label_area_text{
+    padding-left: 5em;
+}
+
+/* LABEL AREA  */
+
+/* ORDER AREA  */
+
+
+.order_area{
+    display: flex;
+    justify-content: center;
+    margin-top: 5em;
+    flex-direction: column;
+    width: 70%;
+}
+
+.order_area_text{
+    color:gray;
+}
+
+
+
+/* ORDER AREA  */
+
+/* ORDER DETAIL AREA  */
+
+.order_detail_area{
+    display: flex;
+    justify-content: center;
+    margin: 5em 0;
+    flex-direction: column;
+    width: 70%;
+}
+
+/* ORDER DETAIL AREA  */
+
+/* BUTTONS AREA  */
+.button_area{
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 5em;
+}
+.button_area>*{
+    margin: 0 3em;
+}
+
+
+/* BUTTONS AREA  */
