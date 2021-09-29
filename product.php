@@ -82,8 +82,8 @@ if(isset($_GET['search_product'])){
                 <label for="QuyCach" class="input_fields">Quy cách <textarea name="QuyCach" id="" cols="20" rows="3"></textarea></label>
                 <label for="TenHinh" class="input_fields">Hình ảnh <input class="upload" type="file" name="TenHinh"></label>
                 <div class="form_btn_wrapper">
-                    <button class="btn" name="add">Thêm</button>
-                    <p class="btn " id="add_new_cancel" >Hủy</p>
+                    <button class="btn form_btn" name="add">Thêm</button>
+                    <p class="btn form_btn " id="add_new_cancel" >Hủy</p>
                 </div>
             </form>
         </div>
@@ -115,8 +115,8 @@ if(isset($_GET['search_product'])){
 
                 </select>
                 <button class="btn" name="search_product"id="search_btn">Tìm kiếm</button>
-                <button class="btn btn_no_default" id="add_product">Thêm sản phẩm</button>
-                <button class="btn btn_no_default" id="add_category">Thêm danh mục</button>
+                <button class="btn btn_no_default " id="add_product">Thêm sản phẩm</button>
+                <button class="btn btn_no_default " id="add_category">Thêm danh mục</button>
             </form>
             
         </div>

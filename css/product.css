@@ -20,6 +20,10 @@ p{
   margin: 0;
 }
 
+.form_btn{
+  padding: 2em !important;
+}
+
 .products_container{
   margin-left: 20em;
   position: relative;
