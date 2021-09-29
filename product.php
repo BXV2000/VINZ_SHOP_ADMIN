@@ -1,6 +1,9 @@
 <?php
 include('connection.php');
 
+global $line_number;
+global $product_type;
+
 if(isset($_POST['add'])){
     $TenHH = trim($_POST['TenHH']);
     $Gia = trim($_POST['Gia']);
@@ -21,6 +24,7 @@ if(isset($_POST['add'])){
     echo"<script>alert(`Đã thêm hàng hóa`)</script>";
     echo"<script>window.location='product.php' </script>";
 }
+
 if(isset($_POST['delete'])){
     $MSHH=$_GET['delete'];
     $remove_product="DELETE FROM hanghoa WHERE MSHH='$MSHH'";
@@ -29,6 +33,11 @@ if(isset($_POST['delete'])){
     echo"<script>window.location='product.php' </script>";
 }
 
+if(isset($_GET['search_product'])){
+    $line_number=$_GET['line_number'];
+    $product_type=$_GET['product_type'];
+    
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -87,9 +96,9 @@ if(isset($_POST['delete'])){
         
         <div class="function_area">
         
-            <form action="./product.php" class="search_form" method="GET">
-                <label for="line_number" class="line_input_wrapper">Nhập số dòng:<input type="number" name="line_number" class="number_input" value='10'></label>
-                <select name="" id="" class="curl_select">
+            <form action="./product.php" class="search_form" id="filter_form" method="GET">
+                <label for="line_number" class="line_input_wrapper">Nhập số dòng:<input type="number" name="line_number" class="number_input line_number" value='10'></label>
+                <select name="product_type" id="" class="curl_select">
                     <option value="0">Chọn danh mục</option>
                         <?php
                             $query_sorting = 'SELECT * from loaihanghoa ORDER BY TenLoaiHang ASC' ;
@@ -124,11 +133,22 @@ if(isset($_POST['delete'])){
                     <th class="column" ></th>
                 </tr>
                 <?php
+                $query_product_type=" ";
+                $query_line_number=" LIMIT 10; ";
+                if($product_type!='0'&&$product_type!=null){
+                    $query_product_type =" WHERE hanghoa.MaLoaiHang='$product_type'";
+                }
+                if($line_number!='0'&&$line_number!=null){
+                    $query_line_number =" LIMIT $line_number;";
+                }
                 $query_product = 'SELECT hanghoa.MSHH,hanghoa.SoLuongHang,hanghoa.QuyCach, hanghoa.TenHH,hanghoa.Gia,loaihanghoa.TenLoaiHang,hinhhanghoa.TenHinh,hanghoa.MaLoaiHang    
-                                  FROM hanghoa 
-                                  JOIN loaihanghoa ON hanghoa.MaLoaiHang = loaihanghoa.MaLoaiHang
-                                  JOIN hinhhanghoa  ON hinhhanghoa.MSHH = hanghoa.MSHH
-                                  ORDER BY tenHH ASC' ;
+                                    FROM hanghoa 
+                                    JOIN loaihanghoa ON hanghoa.MaLoaiHang = loaihanghoa.MaLoaiHang
+                                    JOIN hinhhanghoa  ON hinhhanghoa.MSHH = hanghoa.MSHH
+                                    '.$query_product_type.'
+                                    ORDER BY tenHH ASC 
+                                    '.$query_line_number.'
+                                    ';
                 $result_product = mysqli_query($connect,$query_product);
                 mysqli_fetch_all($result_product,MYSQLI_ASSOC);
                 $row_product_count=mysqli_num_rows($result_product);
@@ -162,6 +182,15 @@ if(isset($_POST['delete'])){
         </div>
     </div>
     <script>
+
+        function searchProductValidation(){
+            let lineNumber=document.querySelector('input[name="line_number"]').value;
+            if(!lineNumber){
+                alert('Vui lòng điền số dòng');
+                return false;
+            }
+            
+        }
 
         function addProductValidation(){
             let tenHH=document.querySelector('input[name="TenHH"]').value;
@@ -221,6 +250,10 @@ if(isset($_POST['delete'])){
             if(confirm('Bạn có muốn thêm sản phẩm?'))
                 return addProductValidation();
             else e.preventDefault();
+        };
+        document.getElementById('filter_form').onsubmit = function(e) {
+           
+            return searchProductValidation();
         };
     </script>
 </body>

@@ -56,7 +56,7 @@ select{
 
 
 .btn{
-  padding: 1.5em;
+  padding: 0.5em 1em;
   border-radius: 1em;
   border: solid 0.1em #3F4953;
   background-color: #3F4953;
@@ -69,6 +69,7 @@ select{
   align-items: center;
   font-family: "Arimo";
   font-size: 16px;
+  line-height: 0;
 }
 
 .btn:hover{
@@ -110,6 +111,10 @@ font-weight: bold;
   flex-direction: row;
   padding: 3em;
   justify-content: space-between;
+}
+
+.line_number{
+  height: 2.5em ;
 }
 
 
