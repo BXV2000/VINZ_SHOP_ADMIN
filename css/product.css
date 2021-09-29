@@ -170,6 +170,11 @@ font-weight: bold;
   align-items: center;
   background-color: transparent;
   border:0;
+  transition: 0.3s;
+}
+
+.small_btn:hover{
+  transform: scale(1.3);
 }
 
 /*DISPLAY AREA*/
@@ -216,6 +221,10 @@ font-weight: bold;
 
 .upload{
  text-align: right;
+}
+
+.category_form{
+  height: 15em !important;
 }
 
 /*ADD NEW AREA*/

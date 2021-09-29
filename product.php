@@ -38,6 +38,16 @@ if(isset($_GET['search_product'])){
     $product_type=$_GET['product_type'];
     
 }
+
+if(isset($_POST['add_category'])){
+    $tenLoaiHang=trim($_POST['ThemTenLoaiHang']);
+    $add_product_type="INSERT INTO `loaihanghoa` (`TenLoaiHang`) VALUES ('$tenLoaiHang');";
+    $result_add_product_type=mysqli_query($connect,$add_product_type);
+    echo"<script>alert(`Đã thêm danh mục`)</script>";
+    echo"<script>window.location='product.php' </script>";
+}
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -84,6 +94,16 @@ if(isset($_GET['search_product'])){
                 <div class="form_btn_wrapper">
                     <button class="btn form_btn" name="add">Thêm</button>
                     <p class="btn form_btn " id="add_new_cancel" >Hủy</p>
+                </div>
+            </form>
+        </div>
+        <div class="add_new_area hide" id="add_new_category_wrapper">
+            <form action="./product.php" class="add_new_form category_form" id="add_new_category_form" method="POST">
+                <h3>Thêm danh mục hàng hóa</h3>
+                <label for="ThemTenLoaiHang" class="input_fields">Tên danh mục <input type="text" name="ThemTenLoaiHang"></label>
+                <div class="form_btn_wrapper">
+                    <button class="btn form_btn" name="add_category">Thêm</button>
+                    <p class="btn form_btn " id="add_new_category_cancel" >Hủy</p>
                 </div>
             </form>
         </div>
@@ -169,7 +189,7 @@ if(isset($_GET['search_product'])){
                                     <button class="small_btn delete_btn" name="delete"><i class="fas fa-times-circle"></i></button>
                                 </form>
                                 <form class="action_form" action="./product.php?edit=<?php echo $product['MSHH']?>" method="POST" > 
-                                    <button class="small_btn edit_btn" name="edit"><i class="fas fa-pen"></i></button>
+                                    <button class="small_btn edit_btn " name="edit"><i class="fas fa-pen"></i></button>
                                 </form>
                             </td>
                         </tr>
@@ -189,7 +209,6 @@ if(isset($_GET['search_product'])){
                 alert('Vui lòng điền số dòng');
                 return false;
             }
-            
         }
 
         function addProductValidation(){
@@ -226,6 +245,14 @@ if(isset($_GET['search_product'])){
             }
         }
 
+        function addProductValidation(){
+            let tenLoaiHang=document.querySelector('input[name="ThemTenLoaiHang"]').value;
+            if(!tenLoaiHang){
+                alert('Vui lòng điền danh mục');
+                return false;
+            }
+        }
+
     
         function btnPreventDefault(){
             let btn_count = document.getElementsByClassName("btn_no_default");
@@ -242,19 +269,36 @@ if(isset($_GET['search_product'])){
             document.getElementById("add_new_form_wrapper").classList.remove("hide");
         });
 
+        document.getElementById("add_category").addEventListener("click", function(event){
+            document.getElementById("add_new_category_wrapper").classList.remove("hide");
+        });
+
         document.getElementById("add_new_cancel").addEventListener("click", function(event){
             document.getElementById("add_new_form_wrapper").classList.add("hide");
             document.getElementById("add_new_form").reset();
         });
+
+        document.getElementById("add_new_category_cancel").addEventListener("click", function(event){
+            document.getElementById("add_new_category_wrapper").classList.add("hide");
+            document.getElementById("add_new_category_form").reset();
+        });
+
         document.getElementById('add_new_form').onsubmit = function(e) {
-            if(confirm('Bạn có muốn thêm sản phẩm?'))
+            if(confirm('Bạn có muốn thêm hàng hóa?'))
                 return addProductValidation();
             else e.preventDefault();
         };
         document.getElementById('filter_form').onsubmit = function(e) {
-           
             return searchProductValidation();
         };
+
+        document.getElementById('add_new_category_form').onsubmit = function(e) {
+            if(confirm('Bạn có muốn thêm danh mục?'))
+                return addProductValidation();
+            else e.preventDefault();
+        };
+
+
     </script>
 </body>
 </html>
