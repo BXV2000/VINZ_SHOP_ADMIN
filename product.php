@@ -47,6 +47,30 @@ if(isset($_POST['add_category'])){
     echo"<script>window.location='product.php' </script>";
 }
 
+if(isset($_POST['edit'])){
+    $MSHH=trim($_POST['edit_hidden_id']);
+    $TenHH = trim($_POST['TenHH_edit']);
+    $Gia = trim($_POST['Gia_edit']);
+    $SoLuongHang = trim($_POST['SoLuongHang_edit']);
+    $TenHinh=$_POST['TenHinh_edit'];
+    $MaLoaiHang=$_POST['TenLoaiHang_edit'];
+    $QuyCach=trim($_POST['QuyCach_edit']);
+    if($TenHinh!=""){
+        $update_product_img="UPDATE hinhhanghoa SET TenHinh='$TenHinh' WHERE MSHH='$MSHH'";
+        $result_img = mysqli_query($connect,$update_product_img);
+    }
+    $update_product="UPDATE hanghoa
+                    SET TenHH = '$TenHH', 
+                        Gia= '$Gia',
+                        QuyCach='$QuyCach',
+                        SoLuongHang='$SoLuongHang',
+                        MaLoaiHang='$MaLoaiHang'
+                    WHERE MSHH = '$MSHH';";
+    $result_update_product = mysqli_query($connect,$update_product);
+    echo"<script>alert(`Đã sửa sản phẩm`)</script>";
+    echo"<script>window.location='product.php' </script>";
+}
+
 
 ?>
 <!DOCTYPE html>
@@ -68,9 +92,9 @@ if(isset($_POST['add_category'])){
         <div class="add_new_area  hide" id="add_new_form_wrapper">
             <form action="./product.php" class="add_new_form" id="add_new_form" method="POST" >
                 <h3>Thêm hàng hóa</h3>
-                <label for="TenHH" class="input_fields">Tên hàng hóa <input type="text" name="TenHH"></label>
-                <label for="Gia" class="input_fields">Giá hàng hóa <input type="number" name="Gia"></label>
-                <label for="SoLuongHang" class="input_fields">Số lượng <input type="number" name="SoLuongHang"></label>
+                <label for="TenHH" class="input_fields">Tên hàng hóa <input type="text" name="TenHH" placeholder="Mì gói"></label>
+                <label for="Gia" class="input_fields">Giá hàng hóa <input type="number" name="Gia" placeholder="2000"></label>
+                <label for="SoLuongHang" class="input_fields">Số lượng <input type="number" name="SoLuongHang" placeholder="10"></label>
                 <label for="TenLoaiHang" class="input_fields">Danh mục
                     <select name="TenLoaiHang" id="select_category" class="">
                         <option value="0">Chọn danh mục</option>
@@ -86,10 +110,9 @@ if(isset($_POST['add_category'])){
                                     }
                                 }
                             ?>
-
                     </select>
                 </label>
-                <label for="QuyCach" class="input_fields">Quy cách <textarea name="QuyCach" id="" cols="20" rows="3"></textarea></label>
+                <label for="QuyCach" class="input_fields">Quy cách <textarea name="QuyCach" id="" cols="20" rows="3" placeholder="Khá rẻ"></textarea></label>
                 <label for="TenHinh" class="input_fields">Hình ảnh <input class="upload" type="file" name="TenHinh"></label>
                 <div class="form_btn_wrapper">
                     <button class="btn form_btn" name="add">Thêm</button>
@@ -97,10 +120,43 @@ if(isset($_POST['add_category'])){
                 </div>
             </form>
         </div>
+        <div class="add_new_area hide " id="edit_form_wrapper">
+            <form action="./product.php" class="add_new_form" id="edit_form" method="POST" onsubmit="return confirm(`Bạn có muốn sửa ${document.getElementById('edit_hidden_name').value} ?`);" >
+                <h3>Sửa hàng hóa</h3>
+                <input type="hidden" id="edit_hidden_id" name="edit_hidden_id" value="">
+                <input type="hidden" id="edit_hidden_name" value="">
+                <label for="TenHH_edit" class="input_fields">Tên hàng hóa <input type="text" id="TenHH_edit" name="TenHH_edit"></label>
+                <label for="Gia_edit" class="input_fields">Giá hàng hóa <input type="number" id ="Gia_edit" name="Gia_edit"></label>
+                <label for="SoLuongHang_edit" class="input_fields">Số lượng <input type="number" id="SoLuongHang_edit" name="SoLuongHang_edit"></label>
+                <label for="TenLoaiHang_edit" class="input_fields">Danh mục
+                    <select name="TenLoaiHang_edit" id="select_edit_category" class="">
+                        <option value="0">Chọn danh mục</option>
+                            <?php
+                                $query_sorting = 'SELECT * from loaihanghoa ORDER BY TenLoaiHang ASC' ;
+                                $result_sorting = mysqli_query($connect,$query_sorting);
+                                mysqli_fetch_all($result_sorting,MYSQLI_ASSOC);
+                                $row_sorting_count=mysqli_num_rows($result_sorting);
+                                if($row_sorting_count > 0){
+                                    foreach($result_sorting as $row_sorting){?>
+                                        <option value="<?php echo $row_sorting['MaLoaiHang']?>"><?php echo $row_sorting['TenLoaiHang']?></option>
+                                    <?php
+                                    }
+                                }
+                            ?>
+                    </select>
+                </label>
+                <label for="QuyCach_edit" id="" class="input_fields">Quy cách <textarea name="QuyCach_edit" id="QuyCach_edit" cols="20" rows="3"></textarea></label>
+                <label for="TenHinh_edit" class="input_fields">Hình ảnh <input class="upload" type="file" name="TenHinh_edit"></label>
+                <div class="form_btn_wrapper">
+                    <button class="btn form_btn" name="edit">Sửa</button>
+                    <p class="btn form_btn " id="edit_cancel" >Hủy</p>
+                </div>
+            </form>
+        </div>
         <div class="add_new_area hide" id="add_new_category_wrapper">
             <form action="./product.php" class="add_new_form category_form" id="add_new_category_form" method="POST">
                 <h3>Thêm danh mục hàng hóa</h3>
-                <label for="ThemTenLoaiHang" class="input_fields">Tên danh mục <input type="text" name="ThemTenLoaiHang"></label>
+                <label for="ThemTenLoaiHang" class="input_fields">Tên danh mục <input type="text" name="ThemTenLoaiHang"placeholder="Sản phẩm dùng ngay"></label>
                 <div class="form_btn_wrapper">
                     <button class="btn form_btn" name="add_category">Thêm</button>
                     <p class="btn form_btn " id="add_new_category_cancel" >Hủy</p>
@@ -175,21 +231,20 @@ if(isset($_POST['add_category'])){
                 if($row_product_count > 0){
                     foreach($result_product as $product)
                     {?>   
-                        
                         <tr class="">
-                            <td class="column center_text"><?php echo $product['MSHH']?></td>
+                            <td class="column center_text"><?php echo $product['MSHH']?><input type="hidden" value="<?php echo $product['MSHH']?>" class="product_hidden_id"></td>
                             <td class="column center_item"><img src="../GUEST/img/<?php echo $product['TenHinh']?>" class="product_img" alt=""></td>
-                            <td class="column"><?php echo $product['TenHH']?></td>
-                            <td class="column" ><?php echo $product['QuyCach']?></td>
-                            <td class="column" ><?php echo $product['Gia']?> VNĐ</td>
-                            <td class="column center_text" ><?php echo $product['SoLuongHang']?></td>
-                            <td class="column " ><?php echo $product['TenLoaiHang']?></td>
+                            <td class="column product_name"><?php echo $product['TenHH']?></td>
+                            <td class="column product_note" ><?php echo $product['QuyCach']?></td>
+                            <td class="column product_price" ><?php echo $product['Gia']?> VNĐ</td>
+                            <td class="column center_text product_stock" ><?php echo $product['SoLuongHang']?></td>
+                            <td class="column " ><?php echo $product['TenLoaiHang']?><input type="hidden" class="product_category" value="<?php echo $product['MaLoaiHang']?>"></td>
                             <td class="column btn_wrapper" >
                                 <form class="action_form" action="./product.php?delete=<?php echo $product['MSHH']?>" method="POST" onsubmit="return confirm('Bạn có muốn xóa <?php echo $product['TenHH']?>?');">
                                     <button class="small_btn delete_btn" name="delete"><i class="fas fa-times-circle"></i></button>
                                 </form>
                                 <form class="action_form" action="./product.php?edit=<?php echo $product['MSHH']?>" method="POST" > 
-                                    <button class="small_btn edit_btn " name="edit"><i class="fas fa-pen"></i></button>
+                                    <button class="small_btn edit_btn btn_no_default" name="edit"><i class="fas fa-pen"></i></button>
                                 </form>
                             </td>
                         </tr>
@@ -273,6 +328,29 @@ if(isset($_POST['add_category'])){
             document.getElementById("add_new_category_wrapper").classList.remove("hide");
         });
 
+        function editButtonClick(){
+            let editButtons=document.getElementsByClassName('edit_btn');
+            let productHiddenId=document.getElementsByClassName('product_hidden_id');
+            let productName = document.getElementsByClassName('product_name');
+            let productPrice = document.getElementsByClassName('product_price');
+            let productStock = document.getElementsByClassName('product_stock');
+            let productCategory = document.getElementsByClassName('product_category');
+            let productNote = document.getElementsByClassName('product_note');
+            for(let i=0;i<editButtons.length;i++){
+                editButtons[i].addEventListener("click", function(event){
+                    document.getElementById("edit_form_wrapper").classList.remove("hide");
+                    document.getElementById("edit_hidden_id").value=productHiddenId[i].value;
+                    document.getElementById("edit_hidden_name").value=productName[i].innerHTML;
+                    document.getElementById("TenHH_edit").value=productName[i].innerHTML;
+                    document.getElementById("Gia_edit").value=parseInt(productPrice[i].innerHTML);
+                    document.getElementById("SoLuongHang_edit").value=parseInt(productStock[i].innerHTML);
+                    document.getElementById("select_edit_category").value=productCategory[i].value;
+                    document.getElementById("QuyCach_edit").value=productNote[i].innerHTML;
+                });
+            }
+        }
+        editButtonClick();
+
         document.getElementById("add_new_cancel").addEventListener("click", function(event){
             document.getElementById("add_new_form_wrapper").classList.add("hide");
             document.getElementById("add_new_form").reset();
@@ -281,6 +359,10 @@ if(isset($_POST['add_category'])){
         document.getElementById("add_new_category_cancel").addEventListener("click", function(event){
             document.getElementById("add_new_category_wrapper").classList.add("hide");
             document.getElementById("add_new_category_form").reset();
+        });
+
+        document.getElementById("edit_cancel").addEventListener("click", function(event){
+            document.getElementById("edit_form_wrapper").classList.add("hide");
         });
 
         document.getElementById('add_new_form').onsubmit = function(e) {
@@ -298,6 +380,7 @@ if(isset($_POST['add_category'])){
             else e.preventDefault();
         };
 
+    
 
     </script>
 </body>
