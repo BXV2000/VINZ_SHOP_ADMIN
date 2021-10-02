@@ -130,7 +130,6 @@ if(isset($_POST['edit'])){
                 <label for="SoLuongHang_edit" class="input_fields">Số lượng <input type="number" id="SoLuongHang_edit" name="SoLuongHang_edit"></label>
                 <label for="TenLoaiHang_edit" class="input_fields">Danh mục
                     <select name="TenLoaiHang_edit" id="select_edit_category" class="">
-                        <option value="0">Chọn danh mục</option>
                             <?php
                                 $query_sorting = 'SELECT * from loaihanghoa ORDER BY TenLoaiHang ASC' ;
                                 $result_sorting = mysqli_query($connect,$query_sorting);
