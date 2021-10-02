@@ -239,12 +239,13 @@ if(isset($_POST['edit'])){
                             <td class="column center_text product_stock" ><?php echo $product['SoLuongHang']?></td>
                             <td class="column " ><?php echo $product['TenLoaiHang']?><input type="hidden" class="product_category" value="<?php echo $product['MaLoaiHang']?>"></td>
                             <td class="column btn_wrapper" >
-                                <form class="action_form" action="./product.php?delete=<?php echo $product['MSHH']?>" method="POST" onsubmit="return confirm('Bạn có muốn xóa <?php echo $product['TenHH']?>?');">
-                                    <button class="small_btn delete_btn" name="delete"><i class="fas fa-times-circle"></i></button>
-                                </form>
                                 <form class="action_form" action="./product.php?edit=<?php echo $product['MSHH']?>" method="POST" > 
                                     <button class="small_btn edit_btn btn_no_default" name="edit"><i class="fas fa-pen"></i></button>
                                 </form>
+                                <form class="action_form" action="./product.php?delete=<?php echo $product['MSHH']?>" method="POST" onsubmit="return confirm('Bạn có muốn xóa <?php echo $product['TenHH']?>?');">
+                                    <button class="small_btn delete_btn" name="delete"><i class="fas fa-times-circle"></i></button>
+                                </form>
+                                
                             </td>
                         </tr>
                          

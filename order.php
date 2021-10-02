@@ -57,7 +57,7 @@ if(isset($_POST['edit'])){
     <?php include 'login.php'; ?>
     <div class="orders_container">
         <div class="add_new_area hide " id="edit_form_wrapper">
-            <form action="./order.php" class="add_new_form" id="edit_form" method="POST" onsubmit="return confirm(`Bạn có muốn sửa ${document.getElementById('order_hidden_id').value} ?`)  " >
+            <form action="./order.php" class="add_new_form" id="edit_form" method="POST" onsubmit="" >
                 <h3>Cập nhật đơn hàng</h3>
                 <label for="SoDonDH_edit" class="input_fields">Mã đơn hàng <input type="text" id="SoDonDH_edit" name="SoDonDH_edit" value=""disabled ></label>
                 <input type="hidden"  id="edit_hidden_id" name="edit_hidden_id" value="">
@@ -84,7 +84,6 @@ if(isset($_POST['edit'])){
                         <option value="3">Đã hủy</option> 
                     </select>
                 </label>
-
                 <div class="form_btn_wrapper">
                     <button class="btn form_btn" name="edit">Cập nhật</button>
                     <p class="btn form_btn " id="edit_cancel" >Hủy</p>
@@ -166,11 +165,14 @@ if(isset($_POST['edit'])){
                             <td class="column " ><?php echo $product['NgayGH']?> </td>
                             <td class="column center_text order_state" ><?php echo $product['TrangThaiDH']?></td>
                             <td class="column btn_wrapper" >
-                                <form class="action_form" action="./order.php?delete=<?php echo $product['SoDonDH']?>" method="POST" onsubmit="return confirm('Bạn có muốn xóa <?php echo $product['SoDonDH']?>?');">
-                                    <button class="small_btn delete_btn" name="delete"><i class="fas fa-times-circle"></i></button>
+                                <form class="action_form" action="./order.php?view=<?php echo $product['SoDonDH']?>" method="POST"  > 
+                                    <button class="small_btn view_btn " name="view"><i class="fas fa-sticky-note"></i></button>
                                 </form>
                                 <form class="action_form" action="./order.php?edit=<?php echo $product['SoDonDH']?>" method="POST" > 
                                     <button class="small_btn edit_btn btn_no_default" name="edit"><i class="fas fa-pen"></i></button>
+                                </form>
+                                <form class="action_form" action="./order.php?delete=<?php echo $product['SoDonDH']?>" method="POST" onsubmit="return confirm('Bạn có muốn xóa <?php echo $product['SoDonDH']?>?');">
+                                    <button class="small_btn delete_btn" name="delete"><i class="fas fa-times-circle"></i></button>
                                 </form>
                             </td>
                         </tr>
@@ -182,7 +184,6 @@ if(isset($_POST['edit'])){
             </table>
         </div>
     </div>
-    <script src="./js/order.js">
-    </script>
+    <script src="./js/order.js"></script>
 </body>
 </html>

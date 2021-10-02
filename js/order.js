@@ -86,9 +86,7 @@ document.getElementById('filter_form').onsubmit = function(e) {
     return searchProductValidation();
 };
 
-// document.getElementById('edit_form').onsubmit = function(e) {
-     
-// };
+
 btnPreventDefault();
 
 function setOrderState(){
@@ -107,3 +105,7 @@ function setOrderState(){
     }
 }
 setOrderState();
+
+document.getElementById('edit_form').onsubmit = function() {
+    return confirm(`Bạn có muốn cập nhật đơn hàng ${document.getElementById('edit_hidden_id').value} ?`);
+};
