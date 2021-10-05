@@ -4,6 +4,10 @@ body{
     margin: 0;
 }
 
+.black{
+  color: black !important;
+}
+
 span{
     color:#dd2f6e;
   }
@@ -250,3 +254,25 @@ font-weight: bold;
 #SoDonDH_edit{
   background-color: white !important;
 }
+
+
+/*ORDER DETAIL AREA*/
+
+.h3{
+  height: 3em;
+}
+
+.detail_area{
+  height: 30em;
+}
+
+.exit_icon{
+  position: absolute;
+  top: 0.5em;
+  right:0.5em;
+  font-size: 2em;
+  cursor: pointer;
+  margin: 0;
+}
+
+/*ORDER DETAIL AREA*/

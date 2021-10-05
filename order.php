@@ -39,6 +39,10 @@ if(isset($_POST['edit'])){
 }
 
 
+
+
+
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -56,6 +60,54 @@ if(isset($_POST['edit'])){
 <body>
     <?php include 'login.php'; ?>
     <div class="orders_container">
+        <?php
+            if(isset($_POST['view'])){
+                $view_id = $_GET['view'];
+                
+        ?> 
+        <div class="add_new_area " id="order_detail">
+            <div class="add_new_form  detail_area">
+            <br>
+            <h3 >Chi tiết đơn hàng</h3>
+            <p>Mã đơn số:<?php echo $view_id?> </p>
+            <br>
+            <p class="exit_icon" id="exit_icon"><i class="far fa-times-circle"></i></p>
+            <table>
+                <tr>
+                    <th class="center_text">STT</th>
+                    <th>Tên sản phẩm</th>
+                    <th>Số lượng</th>
+                    <th>Thành tiền</th>
+                </tr>
+                <?php
+                 $query_detail= "SELECT hanghoa.TenHH,chitietdathang.SoLuong,chitietdathang.GiaDatHang FROM chitietdathang JOIN hanghoa ON chitietdathang.MSHH=hanghoa.MSHH WHERE SoDonDH ='$view_id'";
+                 $result_detail= mysqli_query($connect,$query_detail);
+                 mysqli_fetch_all($result_detail,MYSQLI_ASSOC);
+                 $row_detail_count=mysqli_num_rows($result_detail);
+                 if($row_detail_count > 0){
+                     $count=1;
+                    foreach($result_detail as $detail){
+                ?> 
+                <tr>
+                    <td class="center_text h3" ><?php echo $count?></td>
+                    <td><?php echo $detail['TenHH']?></td>
+                    <td class="center_text"><?php echo $detail['SoLuong']?></td>
+                    <td class="center_text detail_sub_total"><?php echo $detail['GiaDatHang']?></td>
+                </tr>
+                <?php
+                    $count++;}
+                }
+                ?>
+                <tr >
+                    <th colspan="3">Tổng tiền</th>
+                    <th id="detail_total"></th>
+                </tr>
+            </table>
+            </div>
+        </div>
+        <?php
+            }
+        ?>
         <div class="add_new_area hide " id="edit_form_wrapper">
             <form action="./order.php" class="add_new_form" id="edit_form" method="POST" onsubmit="" >
                 <h3>Cập nhật đơn hàng</h3>
@@ -166,7 +218,7 @@ if(isset($_POST['edit'])){
                             <td class="column center_text order_state" ><?php echo $product['TrangThaiDH']?></td>
                             <td class="column btn_wrapper" >
                                 <form class="action_form" action="./order.php?view=<?php echo $product['SoDonDH']?>" method="POST"  > 
-                                    <button class="small_btn view_btn " name="view"><i class="fas fa-sticky-note"></i></button>
+                                    <button class="small_btn view_btn" name="view"><i class="fas fa-sticky-note"></i></button>
                                 </form>
                                 <form class="action_form" action="./order.php?edit=<?php echo $product['SoDonDH']?>" method="POST" > 
                                     <button class="small_btn edit_btn btn_no_default" name="edit"><i class="fas fa-pen"></i></button>
@@ -185,5 +237,20 @@ if(isset($_POST['edit'])){
         </div>
     </div>
     <script src="./js/order.js"></script>
+    <script>
+        document.getElementById("exit_icon").addEventListener("click",function(e){
+            document.getElementById("order_detail").classList.add("hide");
+        })
+        function calDetailTotal(){
+            let sub_totals=document.getElementsByClassName('detail_sub_total');
+            let total=document.getElementById('detail_total');
+            let cal=0;
+            for(let i =0;i<sub_totals.length;i++){
+                cal+=parseInt(sub_totals[i].innerHTML);
+            }
+            total.innerHTML=cal +" VNĐ";
+        }
+        calDetailTotal()
+    </script>
 </body>
 </html>

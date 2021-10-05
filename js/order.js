@@ -109,3 +109,5 @@ setOrderState();
 document.getElementById('edit_form').onsubmit = function() {
     return confirm(`Bạn có muốn cập nhật đơn hàng ${document.getElementById('edit_hidden_id').value} ?`);
 };
+
+
