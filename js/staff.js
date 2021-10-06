@@ -1,67 +1,53 @@
 function searchProductValidation(){
     let lineNumber=document.querySelector('input[name="line_number"]').value;
     if(!lineNumber){
-        alert('Vui lòng điền số dòng');
+        alert('Vui lòng điền mã nhân viên');
         return false;
     }
 }
 
-function addProductValidation(){
-    let tenHH=document.querySelector('input[name="TenHH"]').value;
-    let gia=document.querySelector('input[name="Gia"]').value;
-    let soLuong=document.querySelector('input[name="SoLuongHang"]').value;
-    let maLoaiHang=document.getElementById('select_category').value;
-    let quyCach=document.querySelector('textarea[name="QuyCach"]').value;
-    let tenHinh=document.querySelector('input[name="TenHinh"]').value;
+function addStaffValidation(){
+    let hoTenNV=document.querySelector('input[name="HoTenNV"]').value;
+    let soDienThoai=document.querySelector('input[name="SoDienThoai"]').value;
+    let chucVu=document.getElementById('select_staff_grade').value;
+    let diaChi=document.querySelector('textarea[name="DiaChi"]').value;
     let error="";
-    console.log(tenHH)
-    if(tenHH.length<=0){
-        error="Vui lòng điền tên hàng hóa";
+    if(hoTenNV.length<=0){
+        error="Vui lòng điền tên nhân viên";
     }
-    if(gia.length<=0){
-        error="Vui lòng điền giá hàng hóa";
+    if(soDienThoai.length<=0){
+        error="Vui lòng điền số điện thoại";
     }
-    if(soLuong.length<=0){
-        error="Vui lòng điền số lượng hàng hóa";
+    if(chucVu==='0'){
+        error="Vui lòng chọn chức vụ";
     }
-    if(maLoaiHang==='0'){
-        error="Vui lòng chọn danh mục hàng hóa";
+    if(diaChi.length<=0){
+        error="Vui lòng điền địa chỉ";
     }
-    if(quyCach.length<=0){
-        error="Vui lòng điền quy cách hàng hóa";
-    }
-    if(tenHinh.length<=0){
-        error="Vui lòng chọn ảnh hàng hóa";
-    }
-
     if(error!=""){
         alert(error);
         return false;
     }
 }
 
-function editProductValidation(){
-    let tenHH=document.querySelector('input[name="TenHH_edit"]').value;
-    let gia=document.querySelector('input[name="Gia_edit"]').value;
-    let soLuong=document.querySelector('input[name="SoLuongHang_edit"]').value;
-    let maLoaiHang=document.getElementById('select_edit_category').value;
-    let quyCach=document.querySelector('textarea[name="QuyCach_edit"]').value;
+function editStaffValidation(){
+    let hoTenNV=document.querySelector('input[name="HoTenNV_edit"]').value;
+    let soDienThoai=document.querySelector('input[name="SoDienThoai_edit"]').value;
+    let chucVu=document.querySelector('select[name="ChucVu_edit"]').value;
+    let diaChi=document.querySelector('textarea[name="DiaChi_edit"]').value;
     let error="";
-    console.log(tenHH)
-    if(tenHH.length<=0){
-        error="Vui lòng điền tên hàng hóa";
+    
+    if(hoTenNV.length<=0){
+        error="Vui lòng điền tên nhân viên";
     }
-    if(gia.length<=0){
-        error="Vui lòng điền giá hàng hóa";
+    if(soDienThoai.length<=0){
+        error="Vui lòng điền số điện thoại";
     }
-    if(soLuong.length<=0){
-        error="Vui lòng điền số lượng hàng hóa";
+    if(chucVu==='0'){
+        error="Vui lòng chọn chức vụ";
     }
-    if(maLoaiHang==='0'){
-        error="Vui lòng chọn danh mục hàng hóa";
-    }
-    if(quyCach.length<=0){
-        error="Vui lòng điền quy cách hàng hóa";
+    if(diaChi.length<=0){
+        error="Vui lòng điền địa chỉ";
     }
 
     if(error!=""){
@@ -96,24 +82,24 @@ document.getElementById("add_product").addEventListener("click", function(event)
 
 function editButtonClick(){
     let editButtons=document.getElementsByClassName('edit_btn');
-    let productHiddenId=document.getElementsByClassName('product_hidden_id');
-    let productName = document.getElementsByClassName('product_name');
-    let productPrice = document.getElementsByClassName('product_price');
-    let productStock = document.getElementsByClassName('product_stock');
-    let productCategory = document.getElementsByClassName('product_category');
-    let productNote = document.getElementsByClassName('product_note');
+    let staffHiddenId=document.getElementsByClassName('staff_hidden_id');
+    let staffName = document.getElementsByClassName('staff_name');
+    let staffGrade = document.getElementsByClassName('staff_grade');
+    let staffAddress = document.getElementsByClassName('staff_address');
+    let staffPhone = document.getElementsByClassName('staff_phone');
+    
     for(let i=0;i<editButtons.length;i++){
         editButtons[i].addEventListener("click", function(event){
             document.getElementById("edit_form_wrapper").classList.remove("hide");
-            document.getElementById("edit_hidden_id").value=productHiddenId[i].value;
-            document.getElementById("edit_hidden_name").value=productName[i].innerHTML;
-            document.getElementById("TenHH_edit").value=productName[i].innerHTML;
-            document.getElementById("Gia_edit").value=parseInt(productPrice[i].innerHTML);
-            document.getElementById("SoLuongHang_edit").value=parseInt(productStock[i].innerHTML);
-            document.getElementById("select_edit_category").value=productCategory[i].value;
-            document.getElementById("QuyCach_edit").value=productNote[i].innerHTML;
+            document.getElementById("edit_hidden_id").value=staffHiddenId[i].value;
+            document.getElementById("edit_hidden_name").value=staffName[i].innerHTML;
+            document.getElementById("HoTenNV_edit").value=staffName[i].innerHTML;
+            document.getElementById("SoDienThoai_edit").value=parseInt(staffPhone[i].innerHTML);
+            document.getElementById("ChucVu_edit").value=staffGrade[i].innerHTML;
+            document.getElementById("DiaChi_edit").value=staffAddress[i].innerHTML;
         });
     }
+  
 }
 editButtonClick();
 
@@ -127,8 +113,8 @@ document.getElementById("edit_cancel").addEventListener("click", function(event)
 });
 
 document.getElementById('add_new_form').onsubmit = function(e) {
-    if(confirm('Bạn có muốn thêm hàng hóa?'))
-        return addProductValidation();
+    if(confirm('Bạn có muốn thêm nhân viên?'))
+        return addStaffValidation();
     else e.preventDefault();
 };
 document.getElementById('filter_form').onsubmit = function(e) {
@@ -137,8 +123,8 @@ document.getElementById('filter_form').onsubmit = function(e) {
 
 
 document.getElementById('edit_form').onsubmit = function(e) {
-    if(confirm(`Bạn có muốn sửa ${document.getElementById('edit_hidden_name').value} ?`))
-        return editProductValidation();
+    if(confirm(`Bạn có muốn cập nhật thông tin của ${document.getElementById('edit_hidden_name').value} ?`))
+        return editStaffValidation();
     else e.preventDefault();
 };
 
