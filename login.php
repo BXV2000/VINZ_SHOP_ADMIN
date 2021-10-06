@@ -16,7 +16,7 @@
         <a href="product.php" ><i class="fas fa-sitemap"></i> Sản phẩm</a>
         <a href="order.php"><i class="fas fa-stream"></i> Đơn hàng</a>
         <a href="customer.php"><i class="fas fa-user"></i> Khách hàng</a>
-        
+        <a href="staff.php"><i class="fas fa-address-card"></i> Nhân viên</a>
       </div>
     </div>
     </body>
