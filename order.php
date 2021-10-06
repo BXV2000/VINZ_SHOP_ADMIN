@@ -238,9 +238,12 @@ if(isset($_POST['edit'])){
     </div>
     <script src="./js/order.js"></script>
     <script>
+        if(document.getElementById("exit_icon")){
         document.getElementById("exit_icon").addEventListener("click",function(e){
             document.getElementById("order_detail").classList.add("hide");
         })
+        
+    
         function calDetailTotal(){
             let sub_totals=document.getElementsByClassName('detail_sub_total');
             let total=document.getElementById('detail_total');
@@ -251,6 +254,7 @@ if(isset($_POST['edit'])){
             total.innerHTML=cal +" VNĐ";
         }
         calDetailTotal()
+        }
     </script>
 </body>
 </html>
