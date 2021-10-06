@@ -1,7 +1,7 @@
 function searchProductValidation(){
     let lineNumber=document.querySelector('input[name="line_number"]').value;
     if(!lineNumber){
-        alert('Vui lòng điền số dòng');
+        alert('Vui lòng điền mã khách hàng');
         return false;
     }
 }

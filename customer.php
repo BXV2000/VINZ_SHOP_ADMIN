@@ -2,7 +2,7 @@
 include('connection.php');
 
 global $line_number;
-global $product_type;
+
 
 
 if(isset($_POST['delete'])){
@@ -14,9 +14,7 @@ if(isset($_POST['delete'])){
 }
 
 if(isset($_GET['search_product'])){
-    $line_number=$_GET['line_number'];
-    $product_type=$_GET['product_type'];
-    
+    $line_number=$_GET['line_number']; 
 }
 
 
@@ -48,22 +46,7 @@ if(isset($_GET['search_product'])){
         <div class="function_area">
         
             <form action="./customer.php" class="search_form" id="filter_form" method="GET">
-                <label for="line_number" class="line_input_wrapper">Nhập số dòng:<input type="number" name="line_number" class="number_input line_number" value='10'></label>
-                <select name="product_type" id="" class="curl_select">
-                    <option value="0">Chọn danh mục</option>
-                        <?php
-                            $query_sorting = 'SELECT * from loaihanghoa ORDER BY TenLoaiHang ASC' ;
-                            $result_sorting = mysqli_query($connect,$query_sorting);
-                            mysqli_fetch_all($result_sorting,MYSQLI_ASSOC);
-                            $row_sorting_count=mysqli_num_rows($result_sorting);
-                            if($row_sorting_count > 0){
-                                foreach($result_sorting as $row_sorting){?>
-                                    <option value="<?php echo $row_sorting['MaLoaiHang']?>"><?php echo $row_sorting['TenLoaiHang']?></option>
-                                <?php
-                                }
-                            }
-                        ?>
-                </select>
+                <label for="line_number" class="line_input_wrapper">Nhập mã khách hàng <input type="number" name="line_number" class="number_input line_number" value=''></label>
                 <button class="btn" name="search_product"id="search_btn">Tìm kiếm</button>
             </form>
             
@@ -80,20 +63,15 @@ if(isset($_GET['search_product'])){
                     <th class="column" ></th>
                 </tr>
                 <?php
-                $query_product_type=" ";
-                $query_line_number=" LIMIT 10; ";
-                // if($product_type!='0'&&$product_type!=null){
-                //     $query_product_type =" WHERE hanghoa.MaLoaiHang='$product_type'";
-                // }
-                // if($line_number!='0'&&$line_number!=null){
-                //     $query_line_number =" LIMIT $line_number;";
-                // }
+                $query_line_number=" ";
+                if($line_number!='0'&&$line_number!=null){
+                    $query_line_number =" WHERE khachhang.MSKH='$line_number'";
+                }
                 $query_customer = 'SELECT khachhang.MSKH,HoTenKH,TenCongTy,SoDienThoai,SoFax,DiaChi    
                                     FROM khachhang
                                     JOIN diachikh ON khachhang.MSKH = diachikh.MSKH
-                                    '.$query_product_type.'
-                                    ORDER BY khachhang.MSKH  ASC 
                                     '.$query_line_number.'
+                                    ORDER BY khachhang.MSKH ASC 
                                     ';
                 $result_customer = mysqli_query($connect,$query_customer);
                 mysqli_fetch_all($result_customer,MYSQLI_ASSOC);
