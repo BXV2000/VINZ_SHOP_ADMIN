@@ -117,9 +117,7 @@ document.getElementById('add_new_form').onsubmit = function(e) {
         return addStaffValidation();
     else e.preventDefault();
 };
-document.getElementById('filter_form').onsubmit = function(e) {
-    return searchProductValidation();
-};
+
 
 
 document.getElementById('edit_form').onsubmit = function(e) {

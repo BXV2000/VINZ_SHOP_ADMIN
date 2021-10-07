@@ -132,12 +132,21 @@ font-weight: bold;
   justify-content: space-between;
 }
 
+.search_section{
+  display: flex;
+  flex-direction: row;
+}
+
 .line_number{
   height: 2.5em ;
   border: 0.1em gray solid;
 }
 .line_number:focus{
   border: 0.1em black solid;
+}
+
+#search_btn{
+  margin-left: 2em;
 }
 
 

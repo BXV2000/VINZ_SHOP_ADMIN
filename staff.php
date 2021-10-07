@@ -119,9 +119,10 @@ if(isset($_POST['edit'])){
         <div class="function_area">
         
             <form action="./staff.php" class="search_form" id="filter_form" method="GET">
+            <div class="search_section">
                 <label for="line_number" class="line_input_wrapper">Nhập mã nhân viên <input type="number" name="line_number" class="number_input line_number" value=''></label>
-               
                 <button class="btn" name="search_staff"id="search_btn">Tìm kiếm</button>
+            </div>
                 <button class="btn btn_no_default " id="add_product">Thêm nhân viên</button>
             </form>
             
