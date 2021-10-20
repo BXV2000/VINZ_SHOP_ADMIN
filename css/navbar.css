@@ -1,36 +1,62 @@
-.navbar_container {
-    position: fixed;
-    top: 50px;
-    left: 0;
-    width: 100%;
-    background-color: rgb(182, 230, 72);
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    box-shadow: 0px 13px 18px -5px rgba(0, 0, 0, 0.26);
-    z-index: 10;
-  }
-  
-  .logo_area {
-    display: flex;
-    align-items: center;
-    margin: 0.5em;
-  }
-  
-  .logo_area > a {
-    text-decoration: none;
-  }
-  
-  .logo_area > img {
-    width: 2em;
-  }
-  
-  .link_area {
-    margin: 1em;
-  }
-  
-  .link_area > a {
-    text-decoration: none;
-    margin: 1em;
-  }
-  
+@import url('https://fonts.googleapis.com/css2?family=Arimo&display=swap');
+body{
+    font-family: 'Arimo', sans-serif; 
+}
+
+a{
+  text-decoration: none;
+}
+
+.login_container{
+  background-color:#DD2F6E;
+  display: flex;
+  flex-direction: column;
+  width: 20em;
+  min-height: 100vh;
+  position: fixed;
+  align-items: center;
+}
+
+.logo_area{
+  margin: 1em;
+}
+
+.logo_img{
+  border-radius: 50%;
+  max-width: 10em;
+}
+
+.function_area{
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+}
+
+.function_area>a{
+  font-size: 20px;
+  color: rgb(228, 228, 228);
+  margin: 1em 2em;
+  transition: 0.2s;
+}
+
+.function_area>a:hover{
+  color:white;
+}
+
+.logout_btn{
+  padding: 1em;
+  background-color: white;
+  border: 0.1em solid transparent;
+  border-radius: 3em;
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.logout_btn:hover{
+  background-color: transparent;
+  border-color: white;
+  color: white;
+}

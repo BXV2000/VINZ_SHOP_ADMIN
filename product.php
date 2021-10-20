@@ -1,6 +1,14 @@
 <?php
 include('connection.php');
 
+session_start();
+if(isset($_SESSION['username']) && $_SESSION['username']){ 
+}
+else{
+  echo"<script>alert(`Vui lòng đăng nhập`)</script>";
+  echo"<script>window.location='login.php' </script>";
+}
+
 global $line_number;
 global $product_type;
 
@@ -87,7 +95,7 @@ if(isset($_POST['edit'])){
     <title>VINZ - SẢN PHẨM</title>
 </head>
 <body>
-    <?php include 'login.php'; ?>
+    <?php include 'navbar.php'; ?>
     <div class="products_container">
         <div class="add_new_area  hide" id="add_new_form_wrapper">
             <form action="./product.php" class="add_new_form" id="add_new_form" method="POST" >

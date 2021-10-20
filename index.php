@@ -1,6 +1,12 @@
 <?php
 
 session_start();
+if(isset($_SESSION['username']) && $_SESSION['username']){ 
+}
+else{
+  echo"<script>alert(`Vui lòng đăng nhập`)</script>";
+  echo"<script>window.location='login.php' </script>";
+}
 
 ?>
 <html>
@@ -13,14 +19,14 @@ session_start();
     </style>
   </head>
   <body>
-  <?php include 'login.php'; ?>
+  <?php include 'navbar.php'; ?>
   <div class="index_container">
     <div class="label_area">
       <div class="page_name">
         <p><span><i class="fas fa-bars"></i></span> Trang chủ</p>
       </div>
       <div class="greeting">
-        <p>Hi,VINZ</p>
+        <p>Hi,<?php echo($_SESSION['username'])?></p>
       </div>
     </div>
     

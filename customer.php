@@ -1,6 +1,12 @@
 <?php
 include('connection.php');
-
+session_start();
+if(isset($_SESSION['username']) && $_SESSION['username']){ 
+}
+else{
+  echo"<script>alert(`Vui lòng đăng nhập`)</script>";
+  echo"<script>window.location='login.php' </script>";
+}
 global $line_number;
 
 
@@ -33,7 +39,7 @@ if(isset($_GET['search_product'])){
     <title>VINZ - KHÁCH HÀNG</title>
 </head>
 <body>
-    <?php include 'login.php'; ?>
+    <?php include 'navbar.php'; ?>
     <div class="products_container">
         
         <div class="label_area">

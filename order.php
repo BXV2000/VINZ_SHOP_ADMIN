@@ -1,6 +1,14 @@
 <?php
 include('connection.php');
 
+session_start();
+if(isset($_SESSION['username']) && $_SESSION['username']){ 
+}
+else{
+  echo"<script>alert(`Vui lòng đăng nhập`)</script>";
+  echo"<script>window.location='login.php' </script>";
+}
+
 global $line_number;
 global $order_status;
 global $sort_by;
@@ -58,7 +66,7 @@ if(isset($_POST['edit'])){
     <title>VINZ - ĐƠN HÀNG</title>
 </head>
 <body>
-    <?php include 'login.php'; ?>
+    <?php include 'navbar.php'; ?>
     <div class="orders_container">
         <?php
             if(isset($_POST['view'])){

@@ -1,45 +1,59 @@
 @import url('https://fonts.googleapis.com/css2?family=Arimo&display=swap');
 body{
+    margin: 0;
     font-family: 'Arimo', sans-serif; 
 }
 
-a{
-  text-decoration: none;
+input{
+    font-family: 'Arimo', sans-serif; 
+    width: 12em;
+    font-size: 16px;
+}
+label{
+    font-size: 20px;
+}
+
+button{
+    font-family: 'Arimo', sans-serif; 
+}
+
+.button{
+    background-color: #3F4953;
+    border: 0.1em solid transparent;
+    padding: 1em;
+    border-radius: 3em;
+    color: white;
+    font-weight: bold;
+    font-size: 16px;
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+.button:hover{
+    background-color: white;
+    color:#3F4953;
+    border-color: #3F4953;
+}
+
+.item{
+    display: flex;
+    justify-content: space-between;
+    width: 15em;
+    margin: 1em;
 }
 
 .login_container{
-  background-color:#DD2F6E;
-  display: flex;
-  flex-direction: column;
-  width: 20em;
-  min-height: 100vh;
-  position: fixed;
-  align-items: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgb(189, 189, 189);
 }
 
-.logo_area{
-  margin: 1em;
-}
-
-.logo_img{
-  border-radius: 50%;
-  max-width: 10em;
-}
-
-.function_area{
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-
-}
-
-.function_area>a{
-  font-size: 20px;
-  color: rgb(228, 228, 228);
-  margin: 1em 2em;
-  transition: 0.2s;
-}
-
-.function_area>a:hover{
-  color:white;
+.login_menu{
+    background-color: white;
+    padding: 2em;
+    border-radius: 1em;
+    text-align: center;
 }
