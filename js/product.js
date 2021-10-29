@@ -24,7 +24,7 @@ function addProductValidation(){
     if(soLuong.length<=0){
         error="Vui lòng điền số lượng hàng hóa";
     }
-    if(maLoaiHang==='0'){
+    if(maLoaiHang=='0'){
         error="Vui lòng chọn danh mục hàng hóa";
     }
     if(quyCach.length<=0){
@@ -70,7 +70,7 @@ function editProductValidation(){
     }
 }
 
-function addProductValidation(){
+function addCategoryValidation(){
     let tenLoaiHang=document.querySelector('input[name="ThemTenLoaiHang"]').value;
     if(!tenLoaiHang){
         alert('Vui lòng điền danh mục');
@@ -144,7 +144,7 @@ document.getElementById('filter_form').onsubmit = function(e) {
 
 document.getElementById('add_new_category_form').onsubmit = function(e) {
     if(confirm('Bạn có muốn thêm danh mục?'))
-        return addProductValidation();
+        return addCategoryValidation();
     else e.preventDefault();
 };
 
