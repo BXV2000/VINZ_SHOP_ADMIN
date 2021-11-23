@@ -1,4 +1,4 @@
 <?php
 
-$connect = new mysqli("localhost","root","root","quanlydathang");
+$connect = new mysqli("localhost","root","","quanlydathang");
 ?>
